@@ -11,7 +11,7 @@ const { Participant } = require("./models/participantModel");
 const { addmessage } = require('./controller/messageController'); 
 const adminInit = require('./utils/admin.kafka');
 const {callProducer, consumerRun} = require('./utils/kafka');
-
+const TOPIC = process.env.KAFKA_TOPIC;
 // creating a new express application
 const app = express();
 

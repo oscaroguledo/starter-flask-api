@@ -1,0 +1,126 @@
+.event__Modal__wrapper {
+  background-color: white;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 8px;
+  width: 35%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  flex-direction: column;
+  scrollbar-width: thin;
+  overflow-y: auto;
+  max-height: 80%;
+  overflow-y: auto;
+}
+
+.required__indicator__label,
+.required__indicator {
+  color: #fe0000;
+}
+
+.required__indicator__label {
+  font-size: 0.8rem;
+}
+
+.close__event__modal {
+  margin-left: auto;
+  display: block;
+  cursor: pointer;
+  height: 1.2rem;
+  width: 1.2rem;
+  font-size: 1rem;
+}
+
+.event__form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.event__form h2 {
+  color: #005734;
+}
+
+.event__form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.event__form label span:nth-child(1) {
+  font-size: 0.85rem;
+}
+
+.event__form input,
+.event__share__modal input {
+  padding: 0.5rem;
+  border: 1px solid #005734;
+  border-radius: 5px;
+  outline: none;
+}
+
+.event__share__modal button {
+  padding: 0.5em 1em;
+  background-color: #005734;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.event_body {
+  display: flex;
+  flex-direction: column;
+}
+
+.event_body .event_desc {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.event__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.event__actions button {
+  width: 50%;
+  padding: 0.7rem;
+  background-color: #005734;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.2rem;
+}
+
+.event__actions button:nth-child(2) {
+  background-color: #fff;
+  color: #005734;
+  border: 1px solid #005734;
+}
+
+.event__actions button:nth-child(1):hover {
+  background-color: #fff;
+  color: #005734;
+  border: 1px solid #005734;
+}

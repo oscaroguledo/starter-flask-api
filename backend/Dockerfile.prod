@@ -1,0 +1,31 @@
+# Use a specific version of node:20-alpine for more reliable, consistent builds
+FROM node:20-alpine
+
+# Install dependencies for Tensorflow
+RUN apk add --no-cache python3 make g++ pkgconf build-base cairo-dev jpeg-dev pango-dev giflib-dev pixman-dev pangomm-dev libjpeg-turbo-dev freetype-dev
+
+# Create app directory and ensure proper permissions
+RUN mkdir -p /usr/src/app && chown -R node:node /usr/src/app
+
+# Set working directory in the container
+WORKDIR /usr/src/app
+
+# Copy package.json and package-lock.json
+COPY --chown=node:node package*.json ./
+
+# Use the non-root user 'node' for better security
+USER node
+
+# Install production dependencies only
+RUN npm ci --omit=dev
+
+# Copy the rest of your application code with correct permissions
+COPY --chown=node:node . .
+
+# Expose the port your app runs on
+EXPOSE 5000
+
+CMD ["node", "index.js"]
+
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+  CMD node healthcheck.js

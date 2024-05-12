@@ -1,0 +1,48 @@
+.email-input {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 0.5rem;
+  border: 1px solid #005734;
+  border-radius: 5px;
+  outline: none;
+  width: 81%;
+}
+
+.email-input.notValid {
+  border: 1px solid #e53935;
+}
+.email-input.valid {
+  border: 1px solid #005734;
+}
+
+.email {
+  padding: 0.2rem 0.5rem;
+  background-color: #f0f0f0;
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  height: fit-content;
+  cursor: pointer;
+}
+
+.email.valid {
+  border: 1px solid #005734;
+  background-color: #005734;
+  color: #fff;
+}
+
+.email.invalid {
+  border: 1px solid #e53935;
+  background-color: #e53935;
+}
+
+.email-input input {
+  flex: 1;
+  padding: 8px;
+  border: none;
+}
+
+.email__textarea {
+  outline: none;
+  height: 0.2rem;
+}

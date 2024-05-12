@@ -1,0 +1,132 @@
+.wrapper {
+    height: 100dvh;
+    background-color: #fff;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.side__Nav {
+    width: 20%;
+    height: 100%;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    display: flex;
+    flex-direction: column;
+    gap: 2.6rem;
+    padding: 1rem 2rem;
+    overflow-y: auto;
+}
+
+.logo__item {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-transform: uppercase;
+}
+
+.logo__item h2 {
+    font-size: 0.875rem;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+}
+
+.logo__item img {
+    max-width: 100%;
+    object-fit: cover;
+    width: 4rem;
+    height: 4rem;
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.user__Links__Wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.user__Links__Wrap li {
+    display: flex;
+    gap: 1.5rem;
+    cursor: pointer;
+    padding: 0.7rem;
+    border-radius: 8px;
+    text-transform: capitalize;
+    transition: 0.2s ease-in-out;
+}
+
+.user__Links__Wrap li:hover {
+    background-color: #005734;
+    color: #fff;
+}
+
+.user__Info__Wrap,
+.user__Info {
+    display: flex;
+    align-items: center;
+}
+
+.user__Info__Wrap {
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: auto;
+    position: relative;
+    height: max-content;
+}
+
+.user__Info {
+    gap: 0.5rem;
+}
+
+.user__Info img {
+    max-width: 100%;
+    width: 3rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user__Info p {
+    white-space: nowrap;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 0.875rem;
+}
+
+.user__Actions {
+    position: absolute;
+    bottom: 120%;
+    right: 5%;
+    background-color: #fff;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    z-index: 9999999;
+    padding: 1rem;
+    min-width: 8rem;
+}
+
+.logout__Btn {
+    outline: none;
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    width: 100%;
+    padding: 0.45rem;
+    border-radius: 8px;
+}
+
+.logout__Btn:hover {
+    background-color: #005734;
+    color: #fff;
+}
+
+.app__Content {
+    width: 80%;
+    height: 100%;
+}

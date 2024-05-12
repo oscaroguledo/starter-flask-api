@@ -1,31 +1,82 @@
-# Flask API Starter
+# 🚀 DoWell Proctoring
 
-This is the simplest possible python api using flask that responds with: 
-```
-Hello, world!
-```
+---
 
-## Deploy to Cyclic in seconds 
+## 🛠️ Setup Instructions
 
-[![Deploy to Cyclic](https://deploy.cyclic.app/button.svg)](https://deploy.cyclic.app/)
+Follow these steps to set up the DoWell Proctoring application on your local machine:
 
+---
 
-## Run Locally
+### 🌐 Environment Configuration
 
-Prerequisites:
-- pyenv
-- python 3.10.11
+1. **Create a `.env` File for Application**
 
-Install: `bin/install`
-- creates virtual env
-- installs dependencies from `requirements.txt`
+    At the root directory of the project, create a `.env` file with the following content:
+    ```env
+    ZOOKEEPER_HOST=<YOUR_PRIVATE_IP>
+    KAFKA_HOST=<YOUR_PRIVATE_IP>
+    ```
 
-Run: `bin/start`
-- runs a `gunicorn` server
+---
 
+### 🖥️ Backend Setup
 
-## Questions / Help
+1. **Navigate to Backend Directory**
 
-Join us on Discord: [https://discord.cyclic.sh](https://discord.cyclic.sh)
+    Change your directory to the `backend` folder:
+    ```bash
+    cd backend
+    ```
 
-Enjoy!
+2. **Create a `.env` File for Backend**
+
+    Inside the `backend` directory, create a `.env` file with the following content:
+    ```env
+    PORT=8005
+    IP = <YOUR_PRIVATE_IP>:9092
+    IPDEV = <YOUR_PRIVATE_IP>:9092    # for development server
+    MONGO_DB_URI=mongodb://mongo:27017/<YOUR_DATABASE_NAME>
+    FRONTEND_URLS=["http://localhost:4173", "http://localhost:5173", "http://<YOUR_PRIVATE_IP>:4173"]
+    ```
+
+5. **Run Docker Compose**
+
+    Execute the following command in the terminal to start the application using Docker Compose:
+    ```bash
+    docker-compose -f docker-compose.dev.yml up 
+    docker-compose -f docker-compose.prod.yml down
+    ```
+
+    or
+
+    ```
+    chmod +x run_docker.sh
+    ./run_docker.sh dev
+    ./run_docker.sh prod
+
+    ```
+
+---
+
+### 🛑 Additional Commands
+
+- **Stop the Containers**
+    ```bash
+    docker-compose -f docker-compose.dev.yml down
+    docker-compose -f docker-compose.prod.yml down
+    ```
+
+- **Check Container Logs**
+    ```bash
+    docker logs <container_name> -f
+    ```
+
+---
+
+### 🌟 Accessing the Application
+
+Once the Docker containers are up and running, you can access the DoWell Proctoring application by opening your web browser and navigating to:
+
+```http
+http://localhost:9000

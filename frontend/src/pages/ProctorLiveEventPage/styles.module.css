@@ -1,0 +1,136 @@
+.wrapper {
+    padding: 0.5rem 1rem;
+}
+
+.nav__Wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.8rem;
+}
+
+.logo {
+    width: 6rem;
+    height: 6rem;
+    object-fit: cover;
+}
+
+.live_event_wrap {
+    display: flex;
+    overflow: hidden; 
+}
+
+.participants__Wrap {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    overflow-y: auto; 
+    max-height: 100vh; 
+}
+
+.participants__Wrap video {
+    width: 100%;
+    height: 12rem;
+    max-width: 100%;
+    object-fit: cover;
+    border: 5px solid black;
+}
+
+.proctor__chat {
+    border: 1px solid black;
+    background-color: #f7f7f7; 
+    width: 350px;
+    padding: 1rem;
+    height: 80vh; 
+    overflow-y: auto; 
+    position: sticky; 
+    top: 0;
+    margin-left: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    display: flex;
+    flex-direction: column;
+}
+
+.chat__heading {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+}
+
+.chat__main {
+    overflow-y: auto;
+    max-height: 60vh;
+    /* margin-bottom: 0.5rem; */
+    flex: 1;
+}
+
+.chat__message {
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+    background-color: #e0e0e0;
+}
+
+.chat__message strong {
+    font-weight: 600;
+    margin-right: 0.5rem;
+}
+
+.chat__input {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+}
+
+.chat__input input {
+    width: 95%;
+    padding: 0.5rem;
+    border: none; 
+    border-radius: 4px;
+    outline: none; 
+    box-shadow: 0 -2px 6px rgba(0.1, 0.1, 0.3, 0.1); 
+}
+
+.avatarContainer {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #007bff; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff; 
+}
+
+.messageContent {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.chat_message{
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.chat__icon{
+    font-size: 35px;
+    margin-right: 1%;
+}
+
+.chat__bar{
+    display: flex;
+}

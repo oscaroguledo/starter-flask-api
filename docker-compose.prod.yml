@@ -1,0 +1,91 @@
+version: "3.8"
+
+services:
+  # zookeeper:
+  #   image: 'bitnami/zookeeper:latest'
+  #   ports:
+  #     - '2181:2181'
+  #   container_name: dowell-proctoring-zookeeper
+  #   environment:
+  #     - ALLOW_ANONYMOUS_LOGIN=yes
+  #   healthcheck:
+  #     test: ["CMD", "zookeeper-shell", "localhost:2181", "ruok"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 3
+
+  # kafka:
+  #   image: 'bitnami/kafka:latest'
+  #   ports:
+  #     - '9092:9092'
+  #   container_name: dowell-proctoring-kafka
+  #   environment:
+  #     KAFKA_BROKER_ID: 1
+  #     KAFKA_LISTENERS: PLAINTEXT://:9092
+  #     KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+  #     KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://${KAFKA_HOST}:9092
+  #     KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  #     ALLOW_PLAINTEXT_LISTENER: yes
+  #   depends_on:
+  #     zookeeper:
+  #       condition: service_healthy
+  #   healthcheck:
+  #     test: ["CMD", "kafka-topics", "--bootstrap-server", "localhost:9092", "--list"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 10
+  #   networks:
+  #     - webnet
+
+  dowell-proctoring-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    container_name: dowell-proctoring-backend
+    restart: always
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./backend/.env
+    volumes:
+      - /usr/src/app/node_modules
+    # depends_on:
+    #   kafka:
+    #     condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    networks:
+      - webnet
+
+  dowell-proctoring-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    container_name: dowell-proctoring-frontend
+    restart: always
+    ports:
+      - "4173:4173"
+    networks:
+      - webnet
+    volumes:
+      - /usr/src/app/node_modules
+
+  dowell-proctoring-peerjs:
+    image: peerjs/peerjs-server
+    container_name: dowell-proctoring-peerjs
+    ports:
+      - "9000:9000"
+    environment:
+      - PEERJS_PORT=9000
+      - PEERJS_KEY=peerjs
+      - PEERJS_PATH=/myapp
+    networks:
+      - webnet
+
+networks:
+  webnet:
+    external: true

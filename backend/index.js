@@ -76,7 +76,7 @@ io.on("connection", (socket) => {
         tagged:participant.filter(i => data.message.includes('@' + i._id)).map(i => i._id),
       };
       addmessage(message);
-      // Producer(process.env.KAFKA_TOPIC,message);  
+      //await callProducer(message);  
             
     } catch (error) {
             
@@ -96,7 +96,14 @@ function startServer() {
     console.log(`Server running on port ${PORT}`);
     await adminInit(TOPIC);
     await consumerRun("realtime-messages", [TOPIC]);
-    await callProducer();
+    const message = {
+      eventId: '123344',
+      useremail:'test@gmail.com',
+      username: 'oscaroguledo',
+      message: 'a test message',
+      tagged:['oscar', 'john'],
+    };
+    await callProducer(message);
   });
 }
 

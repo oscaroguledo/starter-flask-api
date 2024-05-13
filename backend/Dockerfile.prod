@@ -1,31 +1,37 @@
 # Use a specific version of node:20-alpine for more reliable, consistent builds
-FROM node:20-alpine
+FROM node:20-alpine AS build
 
+# Install system dependencies
 # Install dependencies for Tensorflow
 RUN apk add --no-cache python3 make g++ pkgconf build-base cairo-dev jpeg-dev pango-dev giflib-dev pixman-dev pangomm-dev libjpeg-turbo-dev freetype-dev
 
-# Create app directory and ensure proper permissions
-RUN mkdir -p /usr/src/app && chown -R node:node /usr/src/app
+# Create a directory where our app will be placed
+RUN mkdir -p /usr/src/backend/node_modules && chown -R node:node /usr/src/backend
 
-# Set working directory in the container
-WORKDIR /usr/src/app
+# Switch to the root user
+USER root
 
-# Copy package.json and package-lock.json
-COPY --chown=node:node package*.json ./
+# Set the working directory in the container
+WORKDIR /usr/src/backend
 
-# Use the non-root user 'node' for better security
-USER node
+# Copy the package.json and package-lock.json
+COPY package*.json ./
 
-# Install production dependencies only
-RUN npm ci --omit=dev
+# Clear npm cache
+RUN npm cache clean --force
 
-# Copy the rest of your application code with correct permissions
-COPY --chown=node:node . .
+# Install project dependencies
+RUN npm install
+
+# Copy the rest of the application code
+COPY . .
 
 # Expose the port your app runs on
 EXPOSE 5000
 
+# Command to run your app
 CMD ["node", "index.js"]
 
+# Healthcheck for the container
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
   CMD node healthcheck.js

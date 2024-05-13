@@ -1,15 +1,18 @@
-# This is the Dockerfile for the frontend service using a multi-stage build process
-# Stage 1: Build the application
-FROM node:20-alpine as builder
+FROM node:20-alpine AS build
 
-# Create app directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+# Create a directory where our app will be placed
+RUN mkdir -p /usr/src/frontend/node_modules && chown -R node:node /usr/src/frontend
 
-# Installing dependencies
+# Set the working directory in the container
+WORKDIR /usr/src/frontend
+
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install all dependencies, including devDependencies
+# Clear npm cache
+RUN npm cache clean --force
+
+# Install dependencies, including devDependencies
 RUN npm install --legacy-peer-deps
 
 # Bundle app source inside Docker image
@@ -23,10 +26,12 @@ FROM node:20-alpine
 
 # Install serve to run the application
 RUN npm install -g serve
+
+# Set the working directory
 WORKDIR /app
 
 # Copy the build directory from the builder stage
-COPY --from=builder /usr/src/app/dist /app
+COPY --from=builder /usr/src/frontend/dist /app
 
 # Expose the port serve uses
 EXPOSE 4173

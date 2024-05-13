@@ -26,7 +26,7 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
 
-  backend:
+  dowell-proctoring-backend:
     build: 
       context: ./backend
       dockerfile: Dockerfile.dev
@@ -41,10 +41,8 @@ services:
     command: ["npm", "run", "dev"]
     depends_on:
       - kafka
-    networks:
-      - webnet
 
-  frontend:
+  dowell-proctoring-frontend:
     build: 
       context: ./frontend
       dockerfile: Dockerfile.dev
@@ -55,9 +53,6 @@ services:
     expose:
       - "4173"
     command: ["npm", "run", "dev"]
-    networks:
-      - webnet
-    
     
   dowell-proctoring-peerjs:
     image: peerjs/peerjs-server
@@ -68,11 +63,4 @@ services:
       - PEERJS_PORT=9000
       - PEERJS_KEY=peerjs
       - PEERJS_PATH=/myapp
-    networks:
-      - webnet
 
-networks:
-    webnet: {}
-
-volumes:
-  backend: {}

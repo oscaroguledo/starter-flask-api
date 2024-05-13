@@ -10,7 +10,7 @@ const { loadModels } = require('./utils/faceDetectorUtils');
 const { Participant } = require("./models/participantModel");
 const { addmessage } = require('./controller/messageController'); 
 const adminInit = require('./utils/admin.kafka');
-const {callProducer, consumerRun} = require('./utils/kafka');
+const {callProducer,producerRun, consumerRun} = require('./utils/kafka');
 const TOPIC = process.env.KAFKA_TOPIC;
 // creating a new express application
 const app = express();
@@ -76,7 +76,7 @@ io.on("connection", (socket) => {
         tagged:participant.filter(i => data.message.includes('@' + i._id)).map(i => i._id),
       };
       addmessage(message);
-      //await callProducer(message);  
+      //await producerRun(message);  
             
     } catch (error) {
             
@@ -96,14 +96,16 @@ function startServer() {
     console.log(`Server running on port ${PORT}`);
     await adminInit(TOPIC);
     await consumerRun("realtime-messages", [TOPIC]);
-    const message = {
-      eventId: '123344',
-      useremail:'test@gmail.com',
-      username: 'oscaroguledo',
-      message: 'a test message',
-      tagged:['oscar', 'john'],
-    };
-    await callProducer(message);
+
+    // testing the producer-----
+    // const message = {
+    //   eventId: '123344',
+    //   useremail:'test@gmail.com',
+    //   username: 'oscaroguledo',
+    //   message: 'a test message',
+    //   tagged:['oscar', 'john'],
+    // };
+    //await callProducer(message);
   });
 }
 

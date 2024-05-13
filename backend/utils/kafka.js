@@ -59,4 +59,4 @@ const consumerRun = async (groupId, topics) => {
     }
   };
   
-module.exports = { callProducer, consumerRun };
+module.exports = { callProducer, consumerRun,producerRun };

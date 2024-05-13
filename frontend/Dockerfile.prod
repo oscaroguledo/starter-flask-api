@@ -31,7 +31,7 @@ RUN npm install -g serve
 WORKDIR /app
 
 # Copy the build directory from the builder stage
-COPY --from=builder /usr/src/frontend/dist /app
+COPY --from=build /usr/src/frontend/dist /app
 
 # Expose the port serve uses
 EXPOSE 4173

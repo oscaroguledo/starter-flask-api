@@ -1,0 +1,103 @@
+version: "3.8"
+
+# Define services
+services:
+  # Zookeeper configuration for managing Kafka state
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 2181:2181
+    restart: always
+    # healthcheck:
+    #   test: ["CMD", "zookeeper-shell", "localhost:2181", "ruok"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    networks:
+      - webnet
+
+  # Kafka configuration for message queuing and streaming
+  kafka:
+    image: bitnami/kafka:latest
+    container_name: kafka
+    ports:
+      - 9092:9092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://${KAFKA_HOST}:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper # condition: service_healthy
+    # healthcheck:
+    #   test: ["CMD", "kafka-topics", "--bootstrap-server", "localhost:9092", "--list"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 10
+    restart: always
+    networks:
+      - webnet
+
+  # Backend API service configuration
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    container_name: backend
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./backend/.env
+    # depends_on:
+    #   kafka:
+    #     condition: service_healthy
+    restart: always
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+    #   interval: 1m
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 30s
+    networks:
+      - webnet
+
+  # Frontend service configuration serving static files
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    container_name: frontend
+    ports:
+      - "4173:4173"
+    restart: always
+    networks:
+      - webnet
+
+  # PeerJS server configuration for peer-to-peer communication
+  peerjs:
+    build:
+      context: ./peer
+      dockerfile: Dockerfile.prod
+    container_name: peerjs
+    ports:
+      - "9000:443"
+    # volumes:
+    #   - /etc/letsencrypt/live/www.uxlive.me:/etc/letsencrypt/live/www.uxlive.me:ro
+    env_file:
+      - ./backend/.env
+    environment:
+      - NODE_ENV=production
+    restart: always
+    networks:
+      - webnet
+
+# Define networks to be used by services
+networks:
+  webnet:
+    # driver: bridge
+    external: true

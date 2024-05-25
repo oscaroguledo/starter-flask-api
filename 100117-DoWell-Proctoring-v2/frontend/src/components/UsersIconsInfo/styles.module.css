@@ -1,0 +1,27 @@
+.nav__Users__Content {
+    display: flex;
+    align-items: center;
+}
+
+.nav__Users__Content > div:not(:first-child) {
+    position: relative;
+    border-width: 4px;
+    border-color: #fff;
+    border-style: solid;
+    border-radius: 50%;
+}
+
+.nav__Users__Content > div:nth-child(2) {
+    left: -.6rem;
+    z-index: 2;
+}
+
+.nav__Users__Content > div:nth-child(3) {
+    left: -1.4rem;
+    z-index: 3;
+}
+
+.nav__Users__Content > div:nth-child(4) {
+    left: -2.2rem;
+    z-index: 4;
+}

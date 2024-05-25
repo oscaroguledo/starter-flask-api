@@ -1,0 +1,40 @@
+.card {
+  position: relative;
+}
+
+.card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  position: relative;
+}
+
+.card__content .card__header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card__footer {
+  position: absolute;
+  bottom: -0.1rem;
+  right: 0rem;
+  background-color: #fff;
+  padding: 0.7rem;
+  border-top-left-radius: 5px;
+  border-left: 2px solid rgba(0, 0, 0, 0.1);
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.card__footer button {
+  background-color: #005734;
+  color: #fff;
+  padding: 0.5rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.title {
+  font-size: 1.2rem;
+  color: #005734;
+}
